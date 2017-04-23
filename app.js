@@ -10,7 +10,7 @@ var express     = require("express"),
     User        = require("./models/user")
     
 //requiring routes
-var collectionRoutes = require("./routes/campgrounds"),
+var collectionRoutes = require("./routes/collection"),
     indexRoutes      = require("./routes/index")
  
 var url = process.env.DATABASEURL || "mongodb://localhost/myLaundryV1";
@@ -46,5 +46,5 @@ app.use("/collection", collectionRoutes);
 
 
 app.listen(process.env.PORT, process.env.IP, function(){
-   console.log("The YelpCamp Server Has Started!");
+   console.log("myLaundry Server Has Started!");
 });
