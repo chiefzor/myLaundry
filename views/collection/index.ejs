@@ -1,0 +1,31 @@
+<% include ../partials/header %> 
+
+ <div class="container">
+     <header class="jumbotron">
+         <div class="container">
+             <h1>Welcome To myLaundry!</h1>
+             <p>View our hand-picked collection from all over the world</p>
+             <p>
+                <a class="btn btn-primary btn-large" href="/collection/new">Add New Garment</a>
+             </p>
+         </div>
+     </header>
+     
+     <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+        <% collection.forEach(function(garment){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                   <img src="<%= garment.image %>">
+                   <div class="caption">
+                       <h4><%= garment.name %></h4>
+                   </div>
+                   <p>
+                       <a href="/collection/<%= garment._id %>" class="btn btn-primary">More Info</a>
+                   </p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+<% include ../partials/footer %>
