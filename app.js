@@ -13,7 +13,7 @@ var express     = require("express"),
 var collectionRoutes = require("./routes/collection"),
     indexRoutes      = require("./routes/index")
  
-var url = process.env.DATABASEURL || "mongodb://localhost/myLaundryV1";
+var url = process.env.DBURL || "mongodb://localhost/myLaundryV1";
 mongoose.connect(url);
 
 app.use(bodyParser.urlencoded({extended: true, uploadDir: __dirname + '/public/uploads'}));
