@@ -16,7 +16,7 @@ var collectionRoutes = require("./routes/collection"),
 var url = process.env.DATABASEURL || "mongodb://localhost/myLaundryV1";
 mongoose.connect(url);
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true, uploadDir: __dirname + '/public/uploads'}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));

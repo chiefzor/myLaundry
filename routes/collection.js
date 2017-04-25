@@ -19,14 +19,16 @@ router.get("/", function(req, res){
 //CREATE - add new garment to DB
 router.post("/", middleware.isLoggedIn, function(req, res){
     // get data from form and add to garments array
+    console.log(req.body);
     var name = req.body.name;
     var image = req.body.image;
+    var color = req.body.color;
     var desc = req.body.description;
     var author = {
         id: req.user._id,
         username: req.user.username
     }
-    var newGarment = {name: name, image: image, description: desc, author:author}
+    var newGarment = {name: name, image: image, color: color, description: desc, author:author}
     // Create a new garment and save to DB
     Garment.create(newGarment, function(err, newlyCreated){
         if(err){
@@ -82,9 +84,9 @@ router.put("/:id",middleware.checkGarmentOwnership, function(req, res){
 router.delete("/:id",middleware.checkGarmentOwnership, function(req, res){
    Garment.findByIdAndRemove(req.params.id, function(err){
       if(err){
-          res.redirect("/garments");
+          res.redirect("/collection");
       } else {
-          res.redirect("/garments");
+          res.redirect("/collection");
       }
    });
 });
