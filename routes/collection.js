@@ -1,5 +1,7 @@
 var express = require("express");
 var router  = express.Router();
+var multer  = require('multer');
+var upload  = multer({ dest: 'uploads/' });
 var Garment = require("../models/garment");
 var middleware = require("../middleware");
 
@@ -17,7 +19,7 @@ router.get("/", function(req, res){
 });
 
 //CREATE - add new garment to DB
-router.post("/", middleware.isLoggedIn, function(req, res){
+router.post("/", [middleware.isLoggedIn, upload.single('avatar')], function(req, res){
     // get data from form and add to garments array
     console.log(req.body);
     var name = req.body.name;
