@@ -1,10 +1,32 @@
 var express = require("express");
 var router  = express.Router();
 var multer  = require('multer');
-var upload  = multer({ dest: 'uploads/' });
+var path    = require('path');
+var crypto  = require('crypto');
+var mime    = require('mime-types');
+var diskDestination = 'public/uploads/';
+var fileName = null;
+var storage =   multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads/');
+  },
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+        if (err){
+           return cb(err);
+          }
+        else{
+          cb(null, fileName = raw.toString('hex') + '.' + mime.extension(file.mimetype));
+          console.log('filefromfunc: ' + fileName);
+        }
+    })
+  }
+});
+var upload = multer({ storage : storage}).single('image');
+/*var upload  = multer({ dest: diskDestination }).single('image');*/
 var Garment = require("../models/garment");
+var Image = require("../models/image");
 var middleware = require("../middleware");
-
 
 //INDEX - show all garments
 router.get("/", function(req, res){
@@ -19,26 +41,52 @@ router.get("/", function(req, res){
 });
 
 //CREATE - add new garment to DB
-router.post("/", [middleware.isLoggedIn, upload.single('avatar')], function(req, res){
-    // get data from form and add to garments array
-    console.log(req.body);
-    var name = req.body.name;
-    var image = req.body.image;
-    var color = req.body.color;
-    var desc = req.body.description;
-    var author = {
-        id: req.user._id,
-        username: req.user.username
-    }
-    var newGarment = {name: name, image: image, color: color, description: desc, author:author}
-    // Create a new garment and save to DB
-    Garment.create(newGarment, function(err, newlyCreated){
-        if(err){
+router.post("/", middleware.isLoggedIn, function(req, res){
+    // uploads the file to the filesystem
+    upload(req,res,function(err) {
+        if(err) {
             console.log(err);
-        } else {
-            //redirect back to garments page
-            console.log(newlyCreated);
-            res.redirect("/collection");
+            return res.end("Error uploading file.");
+        }
+        else{
+            // get data from form and add to garments array
+            var newGarment = null;
+            var name = req.body.name;
+            var image = null;
+            var color = req.body.color;
+            var desc = req.body.description;
+            var author = {
+                id: req.user._id,
+                username: req.user.username
+            };
+            console.log('file: ' + fileName);
+            console.log(req.body.image);
+            image = {
+                name: fileName,
+                path: diskDestination + fileName
+            }
+            
+            // Create a new garment and image and save to DB
+            Image.create(image, function(err, newlyCreated){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    newGarment = {name: name, image: newlyCreated, color: color, description: desc, author:author};
+                    console.log('newGarment: ' + Object.keys(newGarment));
+                    console.log('Image: ' + Object.keys(newlyCreated));
+                    Garment.create(newGarment, function(err, newlyCreated){
+                        if(err){
+                            console.log(err);
+                        } else {
+                            //redirect back to garments page
+                            console.log('Garment: ' + Object.keys(newlyCreated));
+                            res.redirect("/collection");
+                        }
+                    });
+                }
+                });
+            
         }
     });
 });
@@ -51,7 +99,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 // SHOW - shows more info about one garment
 router.get("/:id", function(req, res){
     //find the garment with provided ID
-    Garment.findById(req.params.id).populate("comments").exec(function(err, foundGarment){
+    Garment.findById(req.params.id).populate("image").exec(function(err, foundGarment){
         if(err){
             console.log(err);
         } else {
@@ -65,7 +113,11 @@ router.get("/:id", function(req, res){
 // EDIT GARMENT ROUTE
 router.get("/:id/edit", middleware.checkGarmentOwnership, function(req, res){
     Garment.findById(req.params.id, function(err, foundGarment){
+        if(err){
+           res.redirect("/collection");
+       } else {
         res.render("collection/edit", {garment: foundGarment});
+       }
     });
 });
 
@@ -91,6 +143,11 @@ router.delete("/:id",middleware.checkGarmentOwnership, function(req, res){
           res.redirect("/collection");
       }
    });
+});
+
+router.get("/:id/public/uploads/:imageid", function(req, res){
+    var file = path.resolve('./public/uploads/' + req.params.imageid);
+    res.sendFile(file);
 });
 
 

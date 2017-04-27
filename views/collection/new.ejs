@@ -1,95 +1,43 @@
 <% include ../partials/header %>
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center">Create a New Campground</h1>
+        <h1 style="text-align: center">Create a New Garment</h1>
         <div style="width: 30%; margin: 25px auto;">
-        <form action="/collection" method="POST">
+        <form action="/collection" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-               <input class=form-control type="file" name="image" accept="image/*" capture="camera"> 
+                <input class="form-control" type="text" name="name" placeholder="name">
             </div>
-               
-            <!--       <video id="video" width="640" height="480" autoplay></video>
-	<button id="snap" class="sexyButton">Snap Photo</button>
-	<canvas id="canvas" width="640" height="480"></canvas>
-                <div class="form-group">
-                  
-                  <video  width="640" height="480" autoplay></video>
-                  <canvas width="640" height="480"></canvas> -->
-                <div class="form-group">
-                    <input class="form-control" type="text" name="name" placeholder="name">
-                </div>
-                <div class="form-group">
-                    <select name="color">
-                        <option value="Black" style="background-color: Black;color: #FFFFFF;">Black</option>
-                        <option value="Gray" style="background-color: Gray;">Gray</option>
-                        <option value="White" style="background-color: White;">White</option>
-                        <option value="Aquamarine" style="background-color: Aquamarine;">Aquamarine</option>
-                        <option value="Blue" style="background-color: Blue;color: #FFFFFF;">Blue</option>
-                        <option value="Purple" style="background-color: Purple;color: #FFFFFF;">Purple</option>
-                        <option value="Pink" style="background-color: Pink;">Pink</option>
-                        <option value="Green" style="background-color: Green;color: #FFFFFF;">Green</option>
-                        <option value="Yellow" style="background-color: Yellow;">Yellow</option>
-                        <option value="Orange" style="background-color: Orange;">Orange</option>
-                        <option value="Red" style="background-color: Red;">Red</option>
-                        <option value="Brown" style="background-color: Brown;">Brown</option>
-                      </select>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" name="description" placeholder="description">
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
-                </div>
-            </form>
-            <a href="/collection">Go Back</a>
+            <div class="form-group">
+                <select name="color">
+                    <option value="Black" style="background-color: Black;color: #FFFFFF;">Black</option>
+                    <option value="Gray" style="background-color: Gray;">Gray</option>
+                    <option value="White" style="background-color: White;">White</option>
+                    <option value="Aquamarine" style="background-color: Aquamarine;">Aquamarine</option>
+                    <option value="Blue" style="background-color: Blue;color: #FFFFFF;">Blue</option>
+                    <option value="Purple" style="background-color: Purple;color: #FFFFFF;">Purple</option>
+                    <option value="Pink" style="background-color: Pink;">Pink</option>
+                    <option value="Green" style="background-color: Green;color: #FFFFFF;">Green</option>
+                    <option value="Yellow" style="background-color: Yellow;">Yellow</option>
+                    <option value="Orange" style="background-color: Orange;">Orange</option>
+                    <option value="Red" style="background-color: Red;">Red</option>
+                    <option value="Brown" style="background-color: Brown;">Brown</option>
+                  </select>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="text" name="description" placeholder="description">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+            </div>
+            <div class="form-group">
+               <input class=form-control type="file" name="image" accept="image/*" capture="camera">
+               <!-- <input type="file" name="userPhoto" /> -->
+            </div>
+        </form>
+        <a href="/collection">Go Back</a>
         </div>
     </div>
 </div>
-<script>
 
-		// Put event listeners into place
-		window.addEventListener("DOMContentLoaded", function() {
-			// Grab elements, create settings, etc.
-            var canvas = document.getElementById('canvas');
-            var context = canvas.getContext('2d');
-            var video = document.getElementById('video');
-            var mediaConfig =  { video: true };
-            var errBack = function(e) {
-            	console.log('An error has occurred!', e)
-            };
-
-			// Put video listeners into place
-            if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia(mediaConfig).then(function(stream) {
-                    video.src = window.URL.createObjectURL(stream);
-                    video.play();
-                });
-            }
-
-            /* Legacy code below! */
-            else if(navigator.getUserMedia) { // Standard
-				navigator.getUserMedia(mediaConfig, function(stream) {
-					video.src = stream;
-					video.play();
-				}, errBack);
-			} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
-				navigator.webkitGetUserMedia(mediaConfig, function(stream){
-					video.src = window.webkitURL.createObjectURL(stream);
-					video.play();
-				}, errBack);
-			} else if(navigator.mozGetUserMedia) { // Mozilla-prefixed
-				navigator.mozGetUserMedia(mediaConfig, function(stream){
-					video.src = window.URL.createObjectURL(stream);
-					video.play();
-				}, errBack);
-			}
-
-			// Trigger photo take
-			document.getElementById('snap').addEventListener('click', function() {
-				context.drawImage(video, 0, 0, 640, 480);
-			});
-		}, false);
-
-	</script>
 <% include ../partials/footer %>
 

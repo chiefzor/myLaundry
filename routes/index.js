@@ -36,7 +36,7 @@ router.get("/login", function(req, res){
 //handling login logic -- needs to be like register
 router.post("/login", passport.authenticate("local", 
     {
-        successRedirect: "/",
+        successRedirect: "/collection",
         failureRedirect: "/login"
     }), function(req, res){
 });

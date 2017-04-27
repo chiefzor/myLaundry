@@ -2,7 +2,10 @@ var mongoose = require("mongoose");
 
 var garmentSchema = new mongoose.Schema({
    name: String,
-   image: String,
+   image: {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "Image"
+   },
    type: String,
    color: String,
    description: String,
