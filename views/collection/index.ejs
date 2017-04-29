@@ -15,7 +15,7 @@
         <% collection.forEach(function(garment){ %>
             <div class="col-md-3 col-sm-6">
                 <div class="thumbnail">
-                   <img src="<%= garment.image %>">
+                   <img src="<%= garment._id %>/<%= garment.image.path %>">
                    <div class="caption">
                        <h4><%= garment.name %></h4>
                    </div>

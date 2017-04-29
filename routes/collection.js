@@ -31,7 +31,7 @@ var middleware = require("../middleware");
 //INDEX - show all garments
 router.get("/", function(req, res){
     // Get all garments from DB
-    Garment.find({}, function(err, allCollection){
+    Garment.find({}).populate("image").exec(function(err, allCollection){
        if(err){
            console.log(err);
        } else {
