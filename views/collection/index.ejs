@@ -1,31 +1,195 @@
 <% include ../partials/header %> 
 
- <div class="container">
-     <header class="jumbotron">
-         <div class="container">
-             <h1>Welcome To myLaundry!</h1>
-             <p>View our hand-picked collection from all over the world</p>
-             <p>
-                <a class="btn btn-primary btn-large" href="/collection/new">Add New Garment</a>
-             </p>
-         </div>
-     </header>
-     
-     <div class="row text-center" style="display:flex; flex-wrap: wrap;">
-        <% collection.forEach(function(garment){ %>
-            <div class="col-md-3 col-sm-6">
-                <div class="thumbnail">
-                   <img src="<%= garment._id %>/<%= garment.image.path %>">
-                   <div class="caption">
-                       <h4><%= garment.name %></h4>
-                   </div>
-                   <p>
-                       <a href="/collection/<%= garment._id %>" class="btn btn-primary">More Info</a>
-                   </p>
+<link rel="stylesheet" href="/stylesheets/search.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+        <header class="jumbotron">
+             <div class="container">
+                 <h1>Welcome To myLaundry!</h1>
+                 <p>View our hand-picked collection from all over the world</p>
+                 <p>
+                    <a class="btn btn-primary btn-large" href="/collection/new">Add New Garment</a>
+                 </p>
+             </div>
+         </header>
+         
+         <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+            
+    <div class="col-md-2">
+    			<div id="accordion" class="panel panel-primary behclick-panel">
+    				<div class="panel-heading">
+    					<h3 class="panel-title">Search Filter Car</h3>
+    				</div>
+    				<div class="panel-body" >
+    					<div class="panel-heading " >
+    						<h4 class="panel-title">
+    							<a data-toggle="collapse" href="#collapse0">
+    								<i class="indicator fa fa-caret-down" aria-hidden="true"></i> Price
+    							</a>
+    						</h4>
+    					</div>
+    					<div id="collapse0" class="panel-collapse collapse in" >
+    						<ul class="list-group">
+    							<li class="list-group-item">
+    								<div class="checkbox">
+    									<label>
+    										<input type="checkbox" value="">
+    										0 - 1000$
+    									</label>
+    								</div>
+    							</li>
+    							<li class="list-group-item">
+    								<div class="checkbox" >
+    									<label>
+    										<input type="checkbox" value="">
+    										1000$ - 2000$
+    									</label>
+    								</div>
+    							</li>
+    							<li class="list-group-item">
+    								<div class="checkbox"  >
+    									<label>
+    										<input type="checkbox" value="">
+    										2000$ - 6000$
+    									</label>
+    								</div>
+    							</li>
+    							<li class="list-group-item">
+    								<div class="checkbox"  >
+    									<label>
+    										<input type="checkbox" value="">
+    										More Than 6000$
+    									</label>
+    								</div>
+    							</li>
+    						</ul>
+    					</div>
+    
+    					<div class="panel-heading " >
+    						<h4 class="panel-title">
+    							<a data-toggle="collapse" href="#collapse1">
+    								<i class="indicator fa fa-caret-down" aria-hidden="true"></i> Brand
+    							</a>
+    						</h4>
+    					</div>
+    					<div id="collapse1" class="panel-collapse collapse in" >
+    						<ul class="list-group">
+    							<li class="list-group-item">
+    								<div class="checkbox">
+    									<label>
+    										<input type="checkbox" value="">
+    										citroen
+    									</label>
+    								</div>
+    							</li>
+    							<li class="list-group-item">
+    								<div class="checkbox" >
+    									<label>
+    										<input type="checkbox" value="">
+    										benz
+    									</label>
+    								</div>
+    							</li>
+    							<li class="list-group-item">
+    								<div class="checkbox"  >
+    									<label>
+    										<input type="checkbox" value="">
+    										bmw
+    									</label>
+    								</div>
+    							</li>
+    						</ul>
+    					</div>
+    					<div class="panel-heading" >
+    						<h4 class="panel-title">
+    							<a data-toggle="collapse" href="#collapse3"><i class="indicator fa fa-caret-down" aria-hidden="true"></i> Color</a>
+    						</h4>
+    					</div>
+    					<div id="collapse3" class="panel-collapse collapse in">
+    						<ul class="list-group">
+    							<li class="list-group-item">
+    								<div class="checkbox">
+    									<label>
+    										<input type="checkbox" value="">
+    										red
+    									</label>
+    								</div>
+    							</li>
+    							<li class="list-group-item">
+    								<div class="checkbox" >
+    									<label>
+    										<input type="checkbox" value="">
+    										blue
+    									</label>
+    								</div>
+    							</li>
+    							<li class="list-group-item">
+    								<div class="checkbox"  >
+    									<label>
+    										<input type="checkbox" value="">
+    										green
+    									</label>
+    								</div>
+    							</li>
+    						</ul>
+    					</div>
+    					<div class="panel-heading" >
+    						<h4 class="panel-title">
+    							<a data-toggle="collapse" href="#collapse2"><i class="indicator fa fa-caret-right" aria-hidden="true"></i> Collapsible list group</a>
+    						</h4>
+    					</div>
+    					<div id="collapse2" class="panel-collapse collapse">
+    						<ul class="list-group">
+    							<li class="list-group-item">
+    								<div class="checkbox">
+    									<label>
+    										<input type="checkbox" value="">
+    										7
+    									</label>
+    								</div>
+    							</li>
+    							<li class="list-group-item">
+    								<div class="checkbox" >
+    									<label>
+    										<input type="checkbox" value="">
+    										8
+    									</label>
+    								</div>
+    							</li>
+    							<li class="list-group-item">
+    								<div class="checkbox">
+    									<label>
+    										<input type="checkbox" value="">
+    										9
+    									</label>
+    								</div>
+    							</li>
+    						</ul>
+    					</div>
+    				</div>
+    		</div>
+    </div>
+    <div class="col-md-10">
+            <% collection.forEach(function(garment){ %>
+                <div class="col-md-3 col-sm-6">
+                    <div class="thumbnail">
+                        <div class="thumbnailcollection">
+                           <img src="/uploads/<%= garment.image.name %>">
+                           <div class="caption">
+                               <h4><%= garment.name %></h4>
+                           </div>
+                           <p>
+                               <a href="/collection/<%= garment._id %>" class="btn btn-primary">More Info</a>
+                           </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        <% }); %>
+            <% }); %>
     </div>
 </div>
+
+<script type='text/javascript' src="/scripts/search.js"></script>
+<script type='text/javascript' src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type='text/javascript' src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <% include ../partials/footer %>

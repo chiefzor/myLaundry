@@ -145,10 +145,10 @@ router.delete("/:id",middleware.checkGarmentOwnership, function(req, res){
    });
 });
 
-router.get("/:id/public/uploads/:imageid", function(req, res){
+/*router.get("/:id/public/uploads/:imageid", function(req, res){
     var file = path.resolve('./public/uploads/' + req.params.imageid);
     res.sendFile(file);
-});
+});*/
 
 
 module.exports = router;
