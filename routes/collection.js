@@ -30,12 +30,26 @@ var middleware = require("../middleware");
 
 //INDEX - show all garments
 router.get("/", function(req, res){
+    var uniqueColors = {},
+    uniqueUsers = {},
+    distinctColors = [],
+    distinctUsers = [];
     // Get all garments from DB
     Garment.find({}).populate("image").exec(function(err, allCollection){
        if(err){
            console.log(err);
        } else {
-          res.render("collection/index",{collection:allCollection});
+            for( var i in allCollection ){
+             if( typeof(uniqueColors[allCollection[i].color]) == "undefined"){
+              distinctColors.push(allCollection[i].color);
+             }
+             if( typeof(uniqueUsers[allCollection[i].author]) == "undefined"){
+              distinctUsers.push(allCollection[i].author.username);
+             }
+             uniqueColors[allCollection[i].color] = 0;
+             uniqueUsers[allCollection[i].author] = 0;
+            }
+          res.render("collection/index",{collection:allCollection, colors:distinctColors, users:distinctUsers});
        }
     });
 });
