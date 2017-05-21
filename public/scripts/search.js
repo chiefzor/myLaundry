@@ -1,5 +1,4 @@
 var checkboxes = $("input[type='checkbox']");
-var isFirstcheck = true;
 
 function toggleChevron(e) {
 $(e.target)
@@ -7,6 +6,7 @@ $(e.target)
 		.find("i.indicator")
 		.toggleClass('fa-caret-down fa-caret-right');
 }
+
 $(checkboxes).change(function() {
     if(this.checked) {
 		$('.' + this.value).show()
