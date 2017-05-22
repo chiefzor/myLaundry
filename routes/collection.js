@@ -17,7 +17,6 @@ var storage =   multer.diskStorage({
           }
         else{
           cb(null, fileName = raw.toString('hex') + '.' + mime.extension(file.mimetype));
-          console.log('filefromfunc: ' + fileName);
         }
     })
   }
@@ -73,8 +72,6 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                 id: req.user._id,
                 username: req.user.username
             };
-            console.log('file: ' + fileName);
-            console.log(req.body.image);
             image = {
                 name: fileName,
                 path: diskDestination + fileName
@@ -87,8 +84,6 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                 }
                 else{
                     newGarment = {name: name, image: newlyCreated, color: color, description: desc, author:author};
-                    console.log('newGarment: ' + Object.keys(newGarment));
-                    console.log('Image: ' + Object.keys(newlyCreated));
                     Garment.create(newGarment, function(err, newlyCreated){
                         if(err){
                             console.log(err);
@@ -117,7 +112,6 @@ router.get("/:id", function(req, res){
         if(err){
             console.log(err);
         } else {
-            console.log(foundGarment)
             //render show template with that garment
             res.render("collection/show", {garment: foundGarment});
         }
